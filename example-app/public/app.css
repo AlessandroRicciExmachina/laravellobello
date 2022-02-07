@@ -1,0 +1,15 @@
+body {
+    background: #fff;
+    color: #000;
+    margin: auto;
+    max-width: 600px;
+    font-family: sans-serif;
+}
+
+p {
+    line-height: 1.6em;
+}
+article + article {
+    margin-top: 3rem;
+    border-top: 1px solid grey;
+}
