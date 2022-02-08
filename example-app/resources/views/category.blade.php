@@ -1,7 +1,5 @@
-<x-layout title="My personal blog">
-    {{-- <x-slot name='content'>
-        ciccio
-    </x-slot> --}}
+<x-layout title='{{ $category->name }}'>
+
     @foreach ($posts as $post)
 
         <article class="{{ $loop->even ? 'foobar' : '' }}">
@@ -9,7 +7,7 @@
                 <a href="/post/{{ $post->slug }}"> {!! $post->title !!} </a>
             </h1>
             <p>
-                <a href="/category/{{ $post->category->slug }}">{{ $post->category->name }}</a>
+                {{-- <a href="#">{{ $post->category->name }}</a> --}}
 
             </p>
             <div>
@@ -18,4 +16,5 @@
         </article>
 
     @endforeach
+
 </x-layout>
