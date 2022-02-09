@@ -9,8 +9,10 @@
                 <a href="/post/{{ $post->slug }}"> {!! $post->title !!} </a>
             </h1>
             <p>
+                Written by
+                <a href="#">{{ $post->author->name }} </a>
+                In category
                 <a href="/category/{{ $post->category->slug }}">{{ $post->category->name }}</a>
-
             </p>
             <div>
                 {{ $post->excerpt }}
