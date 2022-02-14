@@ -1,20 +1,14 @@
-<x-layout title='{{ $category->name }}'>
+<x-layout title="My personal blog">
 
-    @foreach ($posts as $post)
+    @include('__post-header')
 
-        <article class="{{ $loop->even ? 'foobar' : '' }}">
-            <h1>
-                <a href="/post/{{ $post->slug }}"> {!! $post->title !!} </a>
-            </h1>
-            <p>
-                {{-- <a href="#">{{ $post->category->name }}</a> --}}
+    <main class="max-w-6xl mx-auto mt-6 lg:mt-20 space-y-6">
+        @if ($posts->count())
+            <x-posts-grid :posts="$posts" />
+        @else
+            <p class="text-center">No post yet! Please come back later!</p>
+        @endif
 
-            </p>
-            <div>
-                {{ $post->excerpt }}
-            </div>
-        </article>
-
-    @endforeach
+    </main>
 
 </x-layout>

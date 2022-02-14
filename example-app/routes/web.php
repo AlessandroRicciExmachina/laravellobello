@@ -17,22 +17,33 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
 
-    return  view('posts', ['posts' => Post::latest()->with('category', 'author')->get()]);
+    return view('posts', [
+        'posts' => Post::latest()->with('category', 'author')->get(),
+        'categories' =>  Category::all()
+    ]);
 });
 
 Route::get('post/{post:slug}', function (Post $post) {
-    // ddd($post->user->name);
     return view('post', ['post' => $post]);
 });
 
 Route::get('category/{category:slug}', function (Category $category) {
-    // dd($category->posts->toArray());
-    return view('category', ['posts' => $category->posts, 'category' => $category]);
+
+    return view('category', [
+        'posts' => $category->posts,
+        'currentCategory' => $category,
+        'categories' =>  Category::all()
+    ]);
+    // return view('category', ['posts' => $category->posts->load(['category', 'author'])]);
 });
 
-Route::get('author/{author}', function (User $author) {
+Route::get('author/{author:username}', function (User $author) {
 
-    return view('category', ['posts' => $author->with('category', 'posts')]);
+    return view('posts', [
+        'posts' => $author->posts,
+        'categories' =>  Category::all()
+    ]);
+    // return view('posts', ['posts' => $author->posts->load(['category', 'author'])]);
 });
 
 // Route::get('post/{post}', function (Post $post) {
