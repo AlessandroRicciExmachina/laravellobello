@@ -22,7 +22,11 @@ class DatabaseSeeder extends Seeder {
 
         User::factory(5)->create()->each(function ($user) {
             Category::factory(5)->create()->each(
-                fn ($cat) => Post::factory(10)->create(['category_id' => $cat->id, 'user_id' => $user->id])
+                function ($cat) use ($user) {
+                    Post::factory(10)->create(['category_id' => $cat->id, 'user_id' => $user->id])->each(function ($post) use ($user) {
+                        Comment::factory(2)->create(['post_id' => $post->id, 'user_id' => $user->id]);
+                    });
+                }
             );
         });
     }

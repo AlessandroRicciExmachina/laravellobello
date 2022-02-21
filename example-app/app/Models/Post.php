@@ -44,7 +44,7 @@ class Post extends Model {
 
     protected $with = ['category', 'author'];
 
-    protected $guarded = [];
+    protected $guarded = [''];
     // protected $fillable = ['category_id'];
 
     public function getRouteKeyName() {
@@ -62,6 +62,10 @@ class Post extends Model {
     public function author() {
 
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function comments() {
+        return $this->hasMany(Comment::class);
     }
 
     public function scopeFilter($query, array $filters) {

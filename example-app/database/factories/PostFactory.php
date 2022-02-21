@@ -16,8 +16,8 @@ class PostFactory extends Factory {
         $title = $this->faker->sentence();
         $slug = Str::slug($title);
         return [
-            // 'category_id' => Category::factory(),
-            // 'user_id' => User::factory(),
+            'category_id' => Category::factory(),
+            'user_id' => User::factory(),
             'title' => $title,
             'slug' => $slug,
             'excerpt' => "<p>" . implode("</p><p>", $this->faker->paragraphs(2)) . "</p>",
