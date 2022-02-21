@@ -25,10 +25,6 @@ Route::GET('register', [RegisterController::class, 'create'])->middleware('guest
 Route::POST('register', [RegisterController::class, 'store'])->middleware('guest');
 Route::POST('logout', [SessionController::class, 'destroy'])->middleware('auth');
 
-Route::GET('testfulvia', function () {
-
-    return 'alsjkdjasljkd';
-});
 
 // Route::get('category/{category:slug}', function (Category $category) {
 
