@@ -1,8 +1,8 @@
 <?php
 
-
-use App\Models\{User, Post, Category};
 use Illuminate\Support\Facades\Route;
+use App\Models\{User, Post, Category};
+use App\Http\Controllers\{PostController, RegisterController, SessionController};
 
 /*
 |--------------------------------------------------------------------------
@@ -15,36 +15,32 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::GET('/{page?}', [PostController::class, 'index'])->where('page', '[0-9]+')->name('home');
+Route::GET('post/{post:slug}', [PostController::class, 'show']);
 
-    return view('posts', [
-        'posts' => Post::latest()->with('category', 'author')->get(),
-        'categories' =>  Category::all()
-    ]);
+Route::GET('login', [SessionController::class, 'create'])->middleware('guest');
+Route::POST('sessions', [SessionController::class, 'store'])->middleware('guest');
+
+Route::GET('register', [RegisterController::class, 'create'])->middleware('guest');
+Route::POST('register', [RegisterController::class, 'store'])->middleware('guest');
+Route::POST('logout', [SessionController::class, 'destroy'])->middleware('auth');
+
+Route::GET('testfulvia', function () {
+
+    return 'alsjkdjasljkd';
 });
 
-Route::get('post/{post:slug}', function (Post $post) {
-    return view('post', ['post' => $post]);
-});
+// Route::get('category/{category:slug}', function (Category $category) {
 
-Route::get('category/{category:slug}', function (Category $category) {
+//     return view('category', [
+//         'posts' => $category->posts,
+//         'currentCategory' => $category,
+//         'categories' =>  Category::all()
+//     ]);
+//     // return view('category', ['posts' => $category->posts->load(['category', 'author'])]);
+// });
 
-    return view('category', [
-        'posts' => $category->posts,
-        'currentCategory' => $category,
-        'categories' =>  Category::all()
-    ]);
-    // return view('category', ['posts' => $category->posts->load(['category', 'author'])]);
-});
 
-Route::get('author/{author:username}', function (User $author) {
-
-    return view('posts', [
-        'posts' => $author->posts,
-        'categories' =>  Category::all()
-    ]);
-    // return view('posts', ['posts' => $author->posts->load(['category', 'author'])]);
-});
 
 // Route::get('post/{post}', function (Post $post) {
 //     return view('post', ['post' => $post]);

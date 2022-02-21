@@ -1,4 +1,5 @@
 @props(['post'])
+
 <article
     {{ $attributes->merge(['class' =>'transition-colors duration-300 hover:bg-gray-100 border border-black border-opacity-0 hover:border-opacity-5 rounded-xl']) }}>
     <div class="py-6 px-5">
@@ -10,10 +11,10 @@
             <header>
                 <div class="space-x-2">
                     <x-category-button :category="$post->category" />
-
                 </div>
 
                 <div class="mt-4">
+
                     <h1 class="text-3xl">
                         <a href="/post/{{ $post->slug }}">{{ $post->title }}</a>
                     </h1>
@@ -24,11 +25,9 @@
                 </div>
             </header>
 
-            <div class="text-sm mt-4">
-                <p class="mt-4">
-                    {{ $post->excerpt }}
-                </p>
+            <div class="text-sm mt-4 space-y-4">
 
+                {!! $post->excerpt !!}
 
             </div>
 
@@ -36,8 +35,9 @@
                 <div class="flex items-center text-sm">
                     <img src="/images/lary-avatar.svg" alt="Lary avatar">
                     <div class="ml-3">
-                        <a href='/author/{{ $post->author->username }}'>
+                        <a href='/?author={{ $post->author->username }}'>
                             <h5 class="font-bold"> {{ $post->author->name }}</h5>
+                            <h5 class="font-bold"> {{ $post->author->username }}</h5>
                         </a>
                         <h6>Mascot at Laracasts</h6>
                     </div>
